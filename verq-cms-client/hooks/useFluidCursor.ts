@@ -1252,7 +1252,7 @@ const useFluidCursor = () => {
 
 function generateColor() {
   // Subtle white-gray for glass/frosted effect
-  const intensity = 0.15 + Math.random() * 0.15; // Soft variation
+  const intensity = 0.1 + Math.random() * 0.1; // Soft variation
   return { r: intensity, g: intensity, b: intensity };
 }
 
