@@ -62,7 +62,7 @@ const Future = ({ data: futureData }: FutureProps) => {
 
                     <div className='grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6 w-full'>
                         {futureData.Points.map((item) => (
-                            <div key={item.id} className='bg-[#FF3D002B] px-5 sm:px-6 md:px-7 lg:px-8 py-4 sm:py-5 md:py-4 border border-[#FFFFFF63] backdrop-blur-[6.8px] text-center flex flex-col items-center justify-between h-full rounded-full gap-3 sm:gap-10 md:gap-12 lg:gap-16'>
+                            <div key={item.id} className='bg-[#FF3D002B] px-5 sm:px-6 md:px-7 lg:px-8 py-4 sm:py-5 md:py-4 border border-[#FFFFFF63] backdrop-blur-[6.8px] text-center flex flex-col items-center justify-between h-full rounded-full gap-3 sm:gap-10 md:gap-16 lg:gap-16 xl:gap-16 2xl:gap-20'>
                                 <h1 className='text-[16px] sm:text-[17px] md:text-[18px] lg:text-[20px]'>{item.title}</h1>
                                 <p className='text-[13px] sm:text-[14px] md:text-[14px] lg:text-[15px] inter'>{item.desc}</p>
                             </div>

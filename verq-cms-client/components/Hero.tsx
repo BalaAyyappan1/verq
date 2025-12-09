@@ -71,19 +71,16 @@ export default function Hero({ data }: HeroProps) {
         <div className="relative z-20 h-full flex flex-col justify-end md:pb-10 pb-40 px-4 lg:px-8">
           <h1
             ref={titleRef}
-            className="text-7xl md:text-9xl lg:text-[140px] xl:text-[100px] leading-[80%] text-white tracking-tighter overflow-hidden"
+            className="text-7xl md:text-9xl lg:text-[100px] xl:text-[100px] 2xl:text-[120px] 2xl:leading-[125px] xl:leading-[75px] lg:leading-[105px] font-regular text-[#FFD0C1] tracking-tighter"
           >
-            {data.title.split('\n').map((line, index) => (
-              <span key={index}>
-                {line}
-                {index < data.title.split('\n').length - 1 && <br />}
-              </span>
-            ))}
+            {data.title.split(' ').slice(0, 1).join(' ')}
+            <br />
+            {data.title.split(' ').slice(1).join(' ')}
           </h1>
 
           <p
             ref={subtitleRef}
-            className="text-lg md:text-2xl lg:text-3xl text-[#e0e0e0] md:mt-8 mt-4 max-w-md font-light tracking-wide opacity-90"
+            className="text-lg md:text-xl lg:text-[20px] text-[#e0e0e0] md:mt-3 mt-1 max-w-sm font-light tracking-wide opacity-90"
           >
             {data.subtitle}
           </p>
@@ -101,7 +98,7 @@ export default function Hero({ data }: HeroProps) {
             </div>
 
             {/* START NOW button*/}
-            <button className='bg-[#FF3D00] text-black md:px-5 px-5 md:py-4 py-2 rounded-[16px] font-medium flex mditems-center md:gap-2 gap-1 hover:bg-[#ff5a26] transition-colors whitespace-nowrap'>
+            <button className='bg-[#FF3D00] text-black md:px-5 px-5 md:py-4 py-2 rounded-full font-medium flex mditems-center md:gap-2 gap-1 hover:bg-[#ff5a26] transition-colors whitespace-nowrap'>
               {data.buttonText} <HiBolt className="text-xl" />
             </button>
           </div>

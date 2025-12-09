@@ -1,17 +1,47 @@
-export const fetchJoinWaitlist = async () => {
-    try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}/api/service?populate=*`, {
-            cache: 'no-store'
-        });
+export interface ServiceVideo {
+  id: number;
+  documentId: string;
+  name: string;
+  alternativeText: string;
+  caption: string;
+  url: string;
+}
 
-        if (!response.ok) {
-            throw new Error('Failed to fetch join waitlist data');
-        }
+export interface ServiceItem {
+  id: number;
+  title: string;
+  desc: string;
+}
 
-        const result = await response.json();
-        return result.data;
-    } catch (error) {
-        console.error('Error fetching join waitlist:', error);
-        return null;
+export interface JoinWaitlistData {
+  buttonText: string;
+  ServicesList: ServiceItem[];
+  Video: ServiceVideo | null;
+}
+
+export const fetchJoinWaitlist = async (): Promise<JoinWaitlistData | null> => {
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_STRAPI_URL}/api/service?populate=*`,
+      {
+        cache: "no-store",
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch join waitlist data");
     }
+
+    const result = await response.json();
+    const data = result.data;
+
+    return {
+      buttonText: data.buttonText || "JOIN THE WAITLIST",
+      ServicesList: data.ServicesList || [],
+      Video: data.Video || null,
+    };
+  } catch (error) {
+    console.error("Error fetching join waitlist:", error);
+    return null;
+  }
 };

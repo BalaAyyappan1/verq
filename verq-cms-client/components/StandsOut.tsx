@@ -59,14 +59,14 @@ const StandsOut = ({ data }: { data: StandsOutData }) => {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 w-full gap-6 md:gap-x-8 mt-4 md:mt-0">
             {data.standingOutPoints.map((item, index) => (
-              <div key={index} className="flex flex-col justify-between min-h-[50px] md:h-[200px] border-l border-black/30 pl-4">
+              <div key={index} className="flex flex-col justify-between min-h-[50px] md:h-[200px] xl:h-[250px] 2xl:h-[400px] border-l border-black/30 pl-4">
                 <div>
                   <div className="w-2 h-2 rounded-full bg-[#E90000] mb-3" />
-                  <h1 className="text-black text-[15px] leading-[17px] font-medium">
+                  <h1 className="text-black text-[15px] xl:text-[17px] xl:leading-[19px] 2xl:text-[35px] leading-[17px] 2xl:leading-[37px] font-medium uppercase"  >
                     {item.title}
                   </h1>
                 </div>
-                <p className="text-black md:text-[15px] text-[12px]  inter leading-[17px]  mt-2">
+                <p className="text-black md:text-[15px] text-[12px] 2xl:text-[18px] 2xl:leading-[20px]  inter leading-[17px]  mt-2">
                   {item.desc}
                 </p>
               </div>

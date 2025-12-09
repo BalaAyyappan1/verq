@@ -9,6 +9,7 @@ import { NAV_LINKS } from "@/constants/Nav";
 
 const ScrambleLink = ({ text, href }: { text: string; href: string }) => {
   const linkRef = useRef<HTMLAnchorElement>(null);
+  const buttonRef = useRef<HTMLAnchorElement>(null);
   const timelineRef = useRef<gsap.core.Timeline | null>(null);
 
   const scrambleChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -104,6 +105,65 @@ const ScrambleLink = ({ text, href }: { text: string; href: string }) => {
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const contactRef = useRef<HTMLAnchorElement>(null);
+  const contactTimelineRef = useRef<gsap.core.Timeline | null>(null);
+
+  const scrambleChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  const contactText = "CONTACT";
+
+  const startContactScramble = () => {
+    if (!contactRef.current) return;
+
+    if (contactTimelineRef.current) contactTimelineRef.current.kill();
+
+    const tl = gsap.timeline();
+    contactTimelineRef.current = tl;
+
+    let iteration = 0;
+
+    tl.to(contactRef.current, {
+      duration: 0.9,
+      ease: "none",
+      onUpdate: function () {
+        const progress = this.progress();
+        iteration = Math.floor(progress * 15);
+
+        const scrambled = contactText
+          .split("")
+          .map((char, i) => {
+            if (i < iteration) return char;
+            return scrambleChars[Math.floor(Math.random() * scrambleChars.length)];
+          })
+          .join("");
+
+        if (contactRef.current) {
+          contactRef.current.textContent = scrambled;
+        }
+      },
+      onComplete: () => {
+        if (contactRef.current) {
+          contactRef.current.textContent = contactText;
+        }
+      },
+    });
+  };
+
+  const resetContact = () => {
+    if (contactTimelineRef.current) {
+      contactTimelineRef.current.kill();
+      contactTimelineRef.current = null;
+    }
+
+    gsap.to(contactRef.current, {
+      duration: 0.9,
+      ease: "power2.out",
+      onComplete: () => {
+        if (contactRef.current) {
+          contactRef.current.textContent = contactText;
+        }
+      },
+    });
+  };
 
   return (
     <div className="flex flex-col lg:flex-row md:px-[7px] px-3 pt-[7px] gap-[7px] lg:gap-0">
@@ -164,6 +224,7 @@ const Navbar = () => {
 
         {/* Contact Button */}
         <Link
+          ref={contactRef}
           href="#contact"
           onClick={(e) => {
             e.preventDefault();
@@ -172,6 +233,8 @@ const Navbar = () => {
               targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
           }}
+          onMouseEnter={startContactScramble}
+          onMouseLeave={resetContact}
           className="
             bg-[#FF3D00] text-black rounded-full hover:bg-[#FF3D00]/90 transition-all duration-300
             w-full lg:w-auto text-center

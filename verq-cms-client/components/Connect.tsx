@@ -14,12 +14,15 @@ type GridItemProps = {
     style?: React.CSSProperties;
 };
 
+
 const GridItem = ({ children, colSpan, rowSpan, className = "", style }: GridItemProps) => (
     <motion.div
         className={`
-      rounded-xl md:rounded-[36px] border border-[#333333] 
+      rounded-xl md:rounded-[28px] 
+      border border-[#C8C8C8]        {/* ← consistent visible border for ALL */}
       flex items-center justify-center 
-      bg-black/40 backdrop-blur-xl
+    backdrop-blur-xl      {/* ← slightly lighter bg so border pops */}
+      hover:border-white/40            {/* ← nice hover */}
       ${className}
     `}
         style={{
@@ -29,8 +32,8 @@ const GridItem = ({ children, colSpan, rowSpan, className = "", style }: GridIte
         }}
         whileHover={{
             scale: 1.04,
-            backgroundColor: "rgba(255, 255, 255, 0.06)",
-            borderColor: "rgba(255, 255, 255, 0.15)",
+            backgroundColor: "rgba(255, 255, 255, 0.08)",
+            borderColor: "rgba(255, 255, 255, 0.4)",
         }}
         transition={{ type: "spring", stiffness: 400, damping: 25 }}
     >
@@ -68,17 +71,17 @@ const Connect = ({ data: connectData }: ConnectProps) => {
                 <div className="flex flex-col lg:flex-row items-start lg:items-end justify-between gap-8 lg:gap-0">
                     {/* Left — Title */}
                     <div className="flex-1 text-left w-full lg:w-auto">
-                        <h2 className="text-4xl md:text-7xl lg:text-8xl font-light tracking-tight leading-[90%]">
+                        <h2 className="text-4xl md:text-[57px] lg:text-[57px] font-light tracking-tight leading-[90%]">
                             {connectData.title}
                         </h2>
                     </div>
 
                     {/* Right — Grid */}
-                    <div className="flex-1 w-full">
+                    <div className="flex-1/5 w-full">
                         <div
                             className="grid grid-cols-6 gap-1 md:gap-3"
                             style={{
-                                gridTemplateRows: "repeat(3, minmax(80px, 1fr))",
+                                gridTemplateRows: "repeat(3, minmax(120px, 1fr))",
                             }}
                         >
                             {sortedLinks.map((socialLink) => {
@@ -96,16 +99,24 @@ const Connect = ({ data: connectData }: ConnectProps) => {
                                                 alt={socialLink.icon.alternativeText || socialLink.icon.name}
                                                 width={32}
                                                 height={32}
-                                                className="w-5 h-5 md:w-8 md:h-8 object-contain"
+                                                className="w-5 h-5 md:w-7 md:h-7 object-contain"
                                             />
                                         </a>
                                     </GridItem>
                                 );
                             })}
 
-                            {/* Main Text - inserted after 4th item (after WhatsApp) */}
-                            <GridItem colSpan={2} rowSpan={2} className="flex items-end justify-center p-4 md:p-6 lg:py-16" style={{ gridColumn: '1 / span 2', gridRow: '2 / span 2' }}>
-                                <p className="text-sm md:text-2xl lg:text-3xl xl:text-2xl font-light text-gray-300 leading-tight">
+                            {/* Main Text - bottom-left + full border */}
+                            <GridItem
+                                colSpan={2}
+                                rowSpan={2}
+                                className="flex items-end justify-start p-6 md:p-8"
+                                style={{
+                                    gridColumn: '1 / span 2',
+                                    gridRow: '2 / span 2'
+                                }}
+                            >
+                                <p className="text-sm md:text-[15px]  text-white inter">
                                     Connect all your<br />essential apps.
                                 </p>
                             </GridItem>

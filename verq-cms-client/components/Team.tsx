@@ -72,7 +72,7 @@ const Team = ({ data }: { data: TeamData }) => {
                                 className='w-[200px] h-[290px] sm:w-[150px] sm:h-[300px] md:w-[200px] md:h-[400px] xl:w-[250px] xl:h-[500px] 2xl:w-[319px] 2xl:h-[612px] rounded-full overflow-hidden relative will-change-transform'
                                 style={{
                                     alignSelf: isTopImage ? 'flex-start' : 'flex-end',
-                                    marginTop: isTopImage ? '1rem' : '0'
+                                    marginTop: isTopImage ? '5rem' : '0'
                                 }}
                             >
                                 <Image

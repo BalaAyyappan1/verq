@@ -43,6 +43,11 @@ const JoinWaitlist = ({ data }: { data: any }) => {
                             Your browser does not support the video tag.
                         </video>
                     )}
+
+
+                    <button className='absolute bottom-5 right-5 md:bottom-10 md:right-20 bg-white text-black md:px-7 cursor-pointer px-5 md:py-3 py-2 rounded-full font-medium flex items-center md:gap-2 gap-1 hover:bg-[#ff5a26] md:text-[22px] transition-colors whitespace-nowrap'>
+                        {data.buttonText}
+                    </button>
                 </div>
             </div>
         </ContainerLayout>

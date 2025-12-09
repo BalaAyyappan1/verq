@@ -12,18 +12,21 @@ const Design = ({ data }: { data: any }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [scrollOffset, setScrollOffset] = useState(0);
 
-  // Predefined positions for floating effect
-  const [isMobile, setIsMobile] = useState(false);
+  const [screenSize, setScreenSize] = useState<'mobile' | 'desktop' | '2xl'>('desktop');
 
   useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
+    const checkSize = () => {
+      if (window.innerWidth < 768) setScreenSize('mobile');
+      else if (window.innerWidth >= 1536) setScreenSize('2xl');
+      else setScreenSize('desktop');
     };
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
+
+    checkSize();
+    window.addEventListener('resize', checkSize);
+    return () => window.removeEventListener('resize', checkSize);
   }, []);
 
+  // Mobile positions (< 768px)
   const mobilePositions = [
     { top: '8%', left: '5%' },
     { top: '18%', right: '5%' },
@@ -32,6 +35,7 @@ const Design = ({ data }: { data: any }) => {
     { top: '75%', left: '10%' },
   ];
 
+  // Desktop positions (768px – 1535px)
   const desktopPositions = [
     { top: '5%', left: '15%' },
     { top: '15%', right: '15%' },
@@ -40,7 +44,22 @@ const Design = ({ data }: { data: any }) => {
     { top: '52%', right: '5%' },
   ];
 
-  const positions = isMobile ? mobilePositions : desktopPositions;
+  // NEW: 2xl positions (1536px+)
+  const twoXlPositions = [
+    { top: '12%', left: '18%' },
+    { top: '29%', right: '20%' },
+    { top: '50%', left: '7%' },
+    { top: '68%', right: '39%' },
+    { top: '58%', right: '18%' },
+  ];
+
+  // Choose the correct array based on current screen size
+  const positions =
+    screenSize === 'mobile'
+      ? mobilePositions
+      : screenSize === '2xl'
+      ? twoXlPositions
+      : desktopPositions;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -48,19 +67,17 @@ const Design = ({ data }: { data: any }) => {
         const rect = containerRef.current.getBoundingClientRect();
         const windowHeight = window.innerHeight;
 
-        // Calculate progress through the viewport (0 to 1)
-        const progress = 1 - (rect.top / windowHeight);
+        const progress = 1 - rect.top / windowHeight;
         setScrollOffset(progress);
       }
     };
 
     window.addEventListener('scroll', handleScroll);
-    handleScroll(); // Initial call
+    handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const getParallaxStyle = (index: number) => {
-    // Different speeds for each element (alternating directions)
     const speeds = [30, -40, 50, -35, 45];
     const speed = speeds[index % speeds.length];
     const movement = scrollOffset * speed;
@@ -75,31 +92,33 @@ const Design = ({ data }: { data: any }) => {
     <ContainerLayout>
       <div
         ref={containerRef}
-        className='relative flex flex-col items-center justify-center gap-4 md:gap-8 bg-[#101010] min-h-screen md:h-[130vh] py-12 md:py-20 px-4'
+        className="relative flex flex-col items-center justify-center gap-4 md:gap-8 bg-[#101010] min-h-screen md:h-[130vh] py-12 md:py-20 px-4"
       >
-        <h1 className='text-5xl sm:text-6xl md:text-8xl lg:text-[159px] text-center relative z-10'>
+        <h1 className="text-5xl sm:text-6xl md:text-8xl lg:text-[159px] xl:text-[159px] 2xl:text-[200px] text-center relative z-10">
           {title}
         </h1>
-        <div className='absolute top-80'>
+
+        <div className="absolute top-80">
           <Image
-            src='/design.png'
+            src="/design.png"
             alt="icons"
             width={40}
             height={40}
-            className='w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10'
+            className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10"
           />
         </div>
-        <div className='absolute inset-0 w-full h-full'>
+
+        <div className="absolute inset-0 w-full h-full">
           {points.map((point: any, index: number) => (
             <div
               key={point.id}
-              className='absolute p-4 sm:p-5 md:p-6 border rounded-full w-[140px] h-[200px] sm:w-[160px] sm:h-[240px] md:w-[198px] md:h-[300px] text-[#FF3D00] flex items-center justify-center'
+              className="absolute p-4 sm:p-5 md:p-6 border rounded-full w-[140px] h-[200px] sm:w-[160px] sm:h-[240px] md:w-[198px] md:h-[300px] text-[#FF3D00] flex items-center justify-center"
               style={{
                 ...positions[index % positions.length],
                 ...getParallaxStyle(index),
               }}
             >
-              <p className='text-xs sm:text-sm md:text-base leading-relaxed text-start'>
+              <p className="text-xs sm:text-sm md:text-base leading-relaxed text-start">
                 {point.desc}
               </p>
             </div>
@@ -107,7 +126,7 @@ const Design = ({ data }: { data: any }) => {
         </div>
       </div>
     </ContainerLayout>
-  )
-}
+  );
+};
 
-export default Design
+export default Design;

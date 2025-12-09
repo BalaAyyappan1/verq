@@ -67,7 +67,7 @@ const Portfolio = ({ data }: { data: PortfolioData | null }) => {
       <div id='works' className="min-h-screen flex flex-col bg-[#101010] py-6 md:py-12 w-full">
         {/* Title + Description */}
         <div className="pb-6 md:pb-12 flex flex-col md:flex-row items-start md:items-center justify-between md:px-30 w-full gap-6">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[88px] font-bold text-[#FFDED3] leading-tight">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[88px]  text-[#FFDED3] leading-tight">
             {title}
           </h1>
           <p className="text-gray-400 max-w-md text-xs md:text-sm">{desc}</p>
@@ -91,7 +91,7 @@ const Portfolio = ({ data }: { data: PortfolioData | null }) => {
                     return (
                       <div
                         key={image.id}
-                        className={`${imageGridClasses[idx]} relative rounded-lg border overflow-hidden`}
+                        className={`${imageGridClasses[idx]} relative rounded-lg overflow-hidden`}
                       >
                         <Image
                           src={url}
