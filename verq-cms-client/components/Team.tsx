@@ -13,7 +13,7 @@ const Team = ({ data }: { data: TeamData }) => {
 
     useEffect(() => {
         const isMobile = window.innerWidth < 768
-        const parallaxSpeeds = isMobile ? [-40, 30, -40] : [-80, 60, -100]
+        const parallaxSpeeds = isMobile ? [-40, -40, -40] : [-80, 60, -100]
 
         const handleScroll = () => {
             if (!containerRef.current) return
@@ -59,7 +59,7 @@ const Team = ({ data }: { data: TeamData }) => {
             <ContainerLayout>
                 <div id='teams' ref={containerRef} className='bg-[#FF3D00] flex flex-col lg:flex-row min-h-screen lg:h-screen rounded-[20px] sm:rounded-[28px] md:rounded-[36px] px-4 sm:px-6 lg:px-10 py-8 lg:py-0 relative overflow-hidden'>
                     <div className='flex flex-col items-center justify-center z-10 mb-8 lg:mb-0'>
-                        <h1 className='text-[39px] sm:text-[32px] lg:text-[48px]'>^^^/'////------^^^^///</h1>
+                        <h1 className='text-[39px] sm:text-[32px] lg:text-[48px] whitespace-nowrap'>^^^/'////------^^^^///</h1>
                         <h1 className='text-[56px] sm:text-[80px] lg:text-[143px] max-w-[280px] sm:max-w-sm lg:max-w-md leading-[100%] text-center'>{teamData.sectionTitle}</h1>
                     </div>
                     <div className='flex md:flex-row flex-col gap-4 items-center md:items-end justify-center lg:justify-end flex-1 relative h-auto lg:h-full'>

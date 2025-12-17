@@ -20,26 +20,31 @@ const JoinWaitlist = ({ data }: { data: any }) => {
     return (
         <div className='bg-[#101010] md:rounded-t-[28px] rounded-t-[45px]'>
             <ContainerLayout>
-                <div id='services' className='bg-[#FF3D00] h-screen flex flex-col-reverse lg:flex-row rounded-[24px] relative overflow-hidden'>
-                    <div className='w-full lg:w-[50%] py-8 md:py-15 h-auto lg:h-full px-5 md:pl-10 relative z-10'>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-3 w-full gap-x-4 md:gap-x-8 gap-y-6 lg:gap-y-0 md:h-full">
+                <div id='services' className='bg-[#FF3D00] md:h-screen flex flex-col-reverse lg:flex-row rounded-[24px] relative overflow-hidden'>
+                    <div className='w-full lg:w-[50%] py-0 md:py-15 h-auto lg:h-full px-5 md:pl-10 relative z-10'>
+                        <h1 className='md:hidden block text-center text-[60px]'>Our Services</h1>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-3 w-full gap-x-4 md:gap-x-8 gap-y-2 lg:gap-y-0 md:h-full">
                             {servicesList.map((item: any, index: number) => (
-                                <div key={index} className="flex flex-col justify-between h-auto lg:h-full w-full border-l border-black/30 pl-4 md:pl-5 py-4 md:py-5">
-                                    <div className='flex flex-col gap-6 md:gap-10'>
-                                        <div className="w-5 h-5 flex items-center justify-center rounded-full text-black text-[60px] md:text-[93px] leading-[100%]">
+                                <>
+                                 <div key={index} className="flex flex-col justify-between h-auto lg:h-full w-full border-l border-black/30  pl-4 md:pl-5 py-4 md:py-5">
+                                    <div className='flex flex-col gap-9 md:gap-10'>
+                                        <div className="w-5 h-5 flex items-center justify-center rounded-full text-black text-[40px] md:text-[93px] leading-[100%]">
                                             {index + 1}
                                         </div>
-                                        <h1 className="text-black text-[14px] md:text-[15px] leading-[16px] md:leading-[17px] font-medium">
+                                        <h1 className="text-white text-[18px] md:text-[15px] leading-[16px] md:leading-[17px] font-medium">
                                             {item.title}
                                         </h1>
                                     </div>
-                                    <p className="text-black text-[14px] md:text-[15px] inter leading-[16px] md:leading-[17px] opacity-80 mt-4 md:mt-0">
+                                    <p className="text-white text-[12px] md:text-[15px] inter leading-[16px] md:leading-[17px] opacity-80 mt-2 md:mt-0">
                                         {item.desc}
                                     </p>
                                 </div>
+                                <hr className='text-black/30 md:hidden block my-4' />
+                                </>
+                               
                             ))}
                         </div>
-                        <div className='md:hidden flex justify-center'>
+                        <div className='md:hidden flex justify-center py-5'>
                             <button
                                 ref={buttonRef as React.RefObject<HTMLButtonElement>}
                                 onClick={handleScrollToSection}
@@ -53,7 +58,7 @@ const JoinWaitlist = ({ data }: { data: any }) => {
 
                     </div>
 
-                    <div className='relative lg:absolute lg:right-0 lg:top-0 w-full lg:w-[50%] h-[300px] lg:h-full rounded-b-[24px] md:rounded-[24px] overflow-hidden'>
+                    <div className='relative lg:absolute lg:right-0 lg:top-0 w-full lg:w-[50%] h-[350px] lg:h-full rounded-b-[24px] md:rounded-[24px] overflow-hidden'>
                         {videoUrl && (
                             <video
                                 className="w-full h-full object-cover"
